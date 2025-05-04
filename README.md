@@ -204,6 +204,7 @@ export YOUR_IP_ADDRESS=YOUR_PUBLIC_IP
 export YOUR_RPC_ENDPOINT=http://localhost:8545
 export YOUR_CONSENSUS_ENDPOINT=http://localhost:3500
 export OTEL_COLLECTOR_ENDPOINT="http://host.docker.internal:4318"
+export P2P_MAX_TX_POOL_SIZE=1000000000
 
 YOUR_VALIDATOR_PRIVATE_KEY=$(cat /run/credentials/aztec.service/validator.key)
 
