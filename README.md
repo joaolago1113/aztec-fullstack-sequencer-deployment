@@ -15,6 +15,7 @@ Follow the steps in order; commands are copy‑paste ready for a bare server.
 ## 0  Prerequisites
 
 * 64‑bit Linux
+* 800 GB free
 * sudo privileges
 * Open ports 30303/tcp+udp, 40401/tcp+udp
 
