@@ -1,11 +1,13 @@
 # Aztec Sequencer – Local EL & CL (Geth + Prysm + Aztec)
 
-> **Sanitised** – replace **ALL** placeholders **before running**:
->   • `YOUR_PUBLIC_IP`
->   • `0xYOUR_COINBASE_ADDRESS`
->   • `0xYOUR_VALIDATOR_PRIVATE_KEY`
->   • any other **ALL‑CAPS** tokens (e.g. `NODEUSER`, `GETH_VER`).
-
+ **Sanitised** – replace **ALL** placeholders **before running**:
+ 
+   • `YOUR_PUBLIC_IP`
+   
+   • `0xYOUR_COINBASE_ADDRESS`
+   
+   • `0xYOUR_VALIDATOR_PRIVATE_KEY`
+   
 Follow the steps in order; commands are copy‑paste ready for a bare server.
 
 ---
@@ -16,10 +18,10 @@ Follow the steps in order; commands are copy‑paste ready for a bare server.
 * sudo privileges
 * Open ports 30303/tcp+udp, 40401/tcp+udp
 
-Define your operator user once per session and export it so that every file we generate is concrete (no `%` specifiers that fail under systemd 244+):
+Define your operator user once per session and export it so that every file we generate is concrete:
 
 ```bash
-export NODEUSER=$(logname)      # current login user
+export NODEUSER=$(logname)     
 export GETH_VER=1.15.10-2bf8a789
 export ARCH=$(uname -m)
 case "$ARCH" in
@@ -108,7 +110,6 @@ sudo -u $NODEUSER bash -c 'mkdir -p ~/ethereum/data && openssl rand -hex 32 | tr
 ## 4  Prysm (consensus layer)
 
 ```bash
-# one‑time setup (or to repair a missing launcher)
 export NODEUSER=$(logname)
 sudo install -d -o "$NODEUSER"  /opt/prysm
 sudo -u "$NODEUSER" curl -L https://raw.githubusercontent.com/prysmaticlabs/prysm/master/prysm.sh -o /opt/prysm/prysm.sh
@@ -156,7 +157,16 @@ sudo systemctl enable --now prysm-beacon.service
 
 ---
 
-## 5  Aztec Alpha‑Testnet
+## 5  Run Aztec Sequencer
+
+At this point you can run the node as usual, but replace the RPC URLs with the following:
+
+```
+export YOUR_RPC_ENDPOINT=http://localhost:8545
+export YOUR_CONSENSUS_ENDPOINT=http://localhost:3500
+````
+
+If you want a more robust setup for your node, which boots up on reboot of your machine then continue copy-pasting:
 
 ### Binary install
 
@@ -167,6 +177,7 @@ NODEUSER=${NODEUSER:-$(logname)}
 sudo -u "$NODEUSER" bash -i <(curl -s https://install.aztec.network)
 # Fetch the latest binaries for the public alpha testnet
 sudo -u "$NODEUSER" bash -c 'echo "export PATH=\$HOME/.aztec/bin:\$PATH" >> ~/.bash_profile && source ~/.bash_profile'
+export PATH="$HOME/.aztec/bin:$PATH"
 sudo -u "$NODEUSER" aztec-up alpha-testnet
 
 ```
