@@ -137,7 +137,7 @@ ExecStart=/opt/prysm/prysm.sh beacon-chain \
   --checkpoint-sync-url=https://sepolia.beaconstate.info \
   --genesis-beacon-api-url=https://sepolia.beaconstate.info \
   --enable-experimental-backfill \
-  --http-host=0.0.0.0
+  --http-host=0.0.0.0 \
   --accept-terms-of-use
 Restart=on-failure
 RestartSec=5
